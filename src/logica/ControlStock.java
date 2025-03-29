@@ -42,8 +42,8 @@ public class ControlStock {
 
     }
 
-    public Boolean agregar(Proveedor unProveedor) {
-        Boolean agregadoOk = false;
+    public boolean agregar(Proveedor unProveedor) {
+        boolean agregadoOk = false;
         if (unProveedor.validar() && !existeProveedor(unProveedor)) {
             agregadoOk = proveedores.add(unProveedor);
         }
@@ -51,11 +51,15 @@ public class ControlStock {
     }
 
     public boolean agregar(Producto unProducto) {
-        unProducto.setCodigo(proxIdProd);
-        proxIdProd++;
-        productos.add(unProducto);
-        unProducto.getProveedor().agregar(unProducto);
-        return true;
+        boolean agregadoOk = false;
+        if (unProducto.validar()) {
+            unProducto.setCodigo(proxIdProd);
+            proxIdProd++;
+            productos.add(unProducto);
+            unProducto.getProveedor().agregar(unProducto);
+            agregadoOk = true;
+        }
+        return agregadoOk;
     }
 
     public Producto getProducto(int codigoProducto) {
@@ -72,6 +76,10 @@ public class ControlStock {
     public boolean existeProveedor(Proveedor unProveedor) {
         Boolean existe = proveedores.contains(unProveedor);
         return existe;
+    }
+
+    public Proveedor getProveedor(int proveedorPos) {
+        return proveedores.get(proveedorPos);
     }
 
 }

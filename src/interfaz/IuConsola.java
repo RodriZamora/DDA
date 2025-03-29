@@ -40,6 +40,7 @@ public class IuConsola {
         ArrayList<String> opciones = new ArrayList();
         opciones.add("Alta de Cliente");
         opciones.add("Alta de Proveedor");
+        opciones.add("Alta de Producto");
         opciones.add("Salir del menú");
         return Consola.menu(opciones);
     }
@@ -59,6 +60,9 @@ public class IuConsola {
                 this.nuevoProveedor();
                 break;
             case 2:
+                this.nuevoProducto();
+                break;
+            case 3:
                 salir = true;
                 break;
 
@@ -113,6 +117,40 @@ public class IuConsola {
         Collection<Proveedor> proveedores = controlStock.getProveedores();
         for (Proveedor p : proveedores) {
             System.out.println(p.getNombre() + " - ");
+        }
+    }
+
+    private void nuevoProducto() {
+        System.out.println("ALTA DE PRODUCTO");
+        System.out.println("===============");
+
+        String nombreProducto;
+        do {
+            nombreProducto = Consola.leer("Nombre: ");
+        } while (nombreProducto.isBlank());
+
+        Integer cantidad = Consola.leerInt("Stock: ");
+
+        int posicionProveedor = Consola.menu(controlStock.getProveedores());
+        Proveedor proveedorElegido = controlStock.getProveedor(posicionProveedor);
+
+        int precio = Consola.leerInt("Precio: ");
+        Producto unProducto = new Producto(nombreProducto, precio, cantidad, proveedorElegido);
+
+        if (controlStock.agregar(unProducto)) {
+            mostrarProductos();
+        } else {
+            System.out.println("EL PRODUCTO NO FUE INGRESADO");
+        }
+    }
+
+    private void mostrarProductos() {
+        System.out.println("=================");
+        System.out.println("PRODUCTOS ACTUALES");
+        System.out.println("=================");
+        Collection<Producto> productos = controlStock.getProductos();
+        for (Producto p : productos) {
+            System.out.println(p.getNombre() + " - " + p.getPrecio());
         }
     }
 }

@@ -75,4 +75,21 @@ public class Producto {
     public int getCodigo() {
         return codigo;
     }
+
+    public boolean validar() {
+        return validarNombre() && validarStock() && validarPrecio();
+    }
+
+    private boolean validarNombre() {
+        return this.nombre != null && !this.nombre.isBlank();
+    }
+
+    private boolean validarStock() {
+        return this.unidades > 0;
+    }
+
+    private boolean validarPrecio() {
+        return this.precio >= 0;
+    }
+
 }
