@@ -47,7 +47,7 @@ public class Proveedor {
     }
 
     private boolean validarNombre() {
-        return this.nombre != null && this.nombre.isBlank();
+        return this.nombre != null && !this.nombre.isBlank();
     }
 
     @Override
