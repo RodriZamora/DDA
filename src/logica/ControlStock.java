@@ -51,9 +51,9 @@ class ControlStock {
     }
 
     public boolean agregar(Producto unProducto) {
+        unProducto.setCodigo(proxIdProd);
         boolean agregadoOk = false;
         if (unProducto.validar()) {
-            unProducto.setCodigo(proxIdProd);
             proxIdProd++;
             productos.add(unProducto);
             unProducto.getProveedor().agregar(unProducto);

@@ -119,24 +119,44 @@ public class IuConsola {
         System.out.println("ALTA DE PRODUCTO");
         System.out.println("===============");
 
-        String nombreProducto;
+        /*String nombreProducto;
         do {
             nombreProducto = Consola.leer("Nombre: ");
-        } while (nombreProducto.isBlank());
+        } while (nombreProducto.isBlank());*/
+        Producto producto = new Producto();
+        while (!producto.setNombre(Consola.leer("Nombre: "))) {
+            System.out.println("Nombre invalido, intenta nuevamente.");
+        }
 
-        Integer cantidad = Consola.leerInt("Stock: ");
+        boolean productoOk = false;
+        //Integer cantidad = Consola.leerInt("Stock: ");
+        if (producto.setUnidades(Consola.leerInt("Unidades: "))) {
+            Proveedor proveedor = mostrarProveedoresYObtenerProveedor();
+            producto.setProveedor(proveedor);
 
-        int posicionProveedor = Consola.menu(Fachada.getInstancia().getProveedores());
+            int precio = Consola.leerInt("Precio: ");
+            if (producto.setPrecio(precio)) {
+                productoOk = Fachada.getInstancia().agregar(producto);
+                mostrarProductos();
+            }
+        } 
+        
+        if(!productoOk){
+            Consola.println("No se pudo dar de alta el producto");
+        }
+
+        /*int posicionProveedor = Consola.menu(Fachada.getInstancia().getProveedores());
         Proveedor proveedorElegido = Fachada.getInstancia().getProveedor(posicionProveedor);
+         */
+        //int precio = Consola.leerInt("Precio: ");
 
-        int precio = Consola.leerInt("Precio: ");
-        Producto unProducto = new Producto(nombreProducto, precio, cantidad, proveedorElegido);
+        /*Producto unProducto = new Producto(producto.getNombre(), precio, producto.getUnidades(), proveedorElegido);
 
         if (Fachada.getInstancia().agregar(unProducto)) {
             mostrarProductos();
         } else {
             System.out.println("EL PRODUCTO NO FUE INGRESADO");
-        }
+        }*/
     }
 
     private void mostrarProductos() {
@@ -147,5 +167,11 @@ public class IuConsola {
         for (Producto p : productos) {
             System.out.println(p.getNombre() + " - " + p.getPrecio());
         }
+    }
+
+    private Proveedor mostrarProveedoresYObtenerProveedor() {
+        ArrayList<Proveedor> proveedores = Fachada.getInstancia().getProveedores();
+        int posicionProveedorElegido = Consola.menu(proveedores);
+        return proveedores.get(posicionProveedorElegido);
     }
 }

@@ -34,8 +34,15 @@ public class Producto {
     }
 
     public boolean setUnidades(int unidades) {
+        int unidadesAnteriores = this.unidades;
         this.unidades = unidades;
-        return true;
+        Boolean unidadesOk = validarStock();
+
+        if (!unidadesOk) {
+            this.unidades = unidadesAnteriores;
+        }
+
+        return unidadesOk;
     }
 
     public Proveedor getProveedor() {
@@ -50,8 +57,14 @@ public class Producto {
         return precio;
     }
 
-    public void setPrecio(int precio) {
+    public Boolean setPrecio(int precio) {
+        int precioAnterior = this.precio;
         this.precio = precio;
+        Boolean precioOk = validarPrecio();
+        if (!precioOk) {
+            this.precio = precioAnterior;
+        }
+        return precioOk;
     }
 
     public String getNombre() {
@@ -59,8 +72,15 @@ public class Producto {
     }
 
     public boolean setNombre(String nombre) {
+        String nombreAnterior = this.nombre;
         this.nombre = nombre;
-        return true;
+        Boolean esNombreValido = validarNombre();
+
+        if (!esNombreValido) {
+            this.nombre = nombreAnterior;
+            //return false;
+        }
+        return esNombreValido;
     }
 
     @Override
