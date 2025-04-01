@@ -12,7 +12,7 @@ import java.util.HashMap;
  *
  * @author magda
  */
-public class ControlFacturas {
+class ControlFacturas {
 
     private static ControlFacturas instancia;
 

@@ -5,6 +5,7 @@
 package logica;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  *
@@ -23,20 +24,40 @@ public class Fachada {
     public static Fachada getInstancia() {
         return instancia;
     }
-    
-    private Fachada (){
-        
+
+    private Fachada() {
+
     }
-    
-    public Producto getProductoMenorPrecio(){
+
+    public Producto getProductoMenorPrecio() {
         return controlStock.getProductoMenorPrecio();
     }
-    
-    public ArrayList<Proveedor> getProveedores(){
+
+    public ArrayList<Proveedor> getProveedores() {
         return controlStock.getProveedores();
     }
 
     public boolean agregar(Proveedor unProveedor) {
         return controlStock.agregar(unProveedor);
+    }
+
+    public boolean agregar(Cliente unCliente) {
+        return controlClientes.agregar(unCliente);
+    }
+
+    public Collection<Cliente> getClientes() {
+        return controlClientes.getClientes();
+    }
+
+    public Proveedor getProveedor(int posicionProveedor) {
+        return controlStock.getProveedor(posicionProveedor);
+    }
+
+    public boolean agregar(Producto unProducto) {
+        return controlStock.agregar(unProducto);
+    }
+
+    public ArrayList<Producto> getProductos() {
+        return controlStock.getProductos();
     }
 }
