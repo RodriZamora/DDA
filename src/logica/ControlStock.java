@@ -2,7 +2,7 @@ package logica;
 
 import java.util.ArrayList;
 
-public class ControlStock {
+class ControlStock {
 
     private static ControlStock instancia;
     private int proxIdProd = 1;

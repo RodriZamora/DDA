@@ -6,7 +6,8 @@ import java.util.Date;
 import logica.ControlClientes;
 import logica.Cliente;
 import logica.ControlFacturas;
-import logica.ControlStock;
+import logica.Fachada;
+
 import logica.Factura;
 import logica.Producto;
 import logica.Proveedor;
@@ -15,7 +16,7 @@ import utilidades.Consola;
 public class IuConsola {
 
     ControlClientes controlClientes = ControlClientes.getInstancia();
-    ControlStock controlStock = ControlStock.getInstancia();
+    
 
     /**
      * Ejecuta la consola
@@ -103,7 +104,7 @@ public class IuConsola {
         String nombre = Consola.leer("Nombre: ");
         Proveedor unProveedor = new Proveedor(nombre);
 
-        if (controlStock.agregar(unProveedor)) {
+        if (Fachada.getInstancia().agregar(unProveedor)) {
             mostrarProveedores();
         } else {
             System.out.println("EL PROVEEDOR NO FUE INGRESADO");
@@ -114,7 +115,7 @@ public class IuConsola {
         System.out.println("=================");
         System.out.println("PROVEEDORES ACTUALES");
         System.out.println("=================");
-        Collection<Proveedor> proveedores = controlStock.getProveedores();
+        Collection<Proveedor> proveedores = Fachada.getInstancia().getProveedores();
         for (Proveedor p : proveedores) {
             System.out.println(p.getNombre() + " - ");
         }
