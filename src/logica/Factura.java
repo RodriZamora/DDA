@@ -28,6 +28,7 @@ public class Factura {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+
     }
 
     public ArrayList<LineaFactura> getLineas() {
@@ -42,18 +43,24 @@ public class Factura {
         return fecha;
     }
 
-    public void agregar(int cantidad, Producto p) {
+    public Boolean agregar(int cantidad, Producto p) {
+
+        Boolean productoOk = p.tieneStock(cantidad);
 
         if (tieneProducto(p)) {
             for (LineaFactura l : lineas) {
                 if (l.tieneProducto(p)) {
-                    l.setCantidad(cantidad + l.getCantidad());
+                    productoOk = p.tieneStock(cantidad + l.getCantidad());
+                    if (productoOk) {
+                        l.setCantidad(cantidad + l.getCantidad());
+                    }
                     break;
                 }
             }
         } else {
-            lineas.add(new LineaFactura(p, cantidad));
+            productoOk = lineas.add(new LineaFactura(p, cantidad));
         }
+        return productoOk;
     }
 
     public boolean tieneProducto(Producto unP) {
@@ -69,20 +76,20 @@ public class Factura {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        
+
         sb.append("Factura{cliente=");
         sb.append(cliente);
-        
+
         for (LineaFactura lineaFc : lineas) {
             sb.append(System.getProperty("line.separator"));
             sb.append(lineaFc.toString());
         }
-        
+
         sb.append(System.getProperty("line.separator"));
         sb.append("Total=");
         sb.append(getTotal());
         sb.append("}");
-        
+
         return sb.toString();
     }
 
@@ -92,6 +99,15 @@ public class Factura {
             total = total + lf.getTotal();
         }
         return total;
+    }
+
+    public LineaFactura getLinea(Producto p) {
+        for (LineaFactura lf : lineas) {
+            if (lf.equals(lf)) {
+                return lf;
+            }
+        }
+        return null;
     }
 
 }

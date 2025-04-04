@@ -60,4 +60,20 @@ public class Fachada {
     public ArrayList<Producto> getProductos() {
         return controlStock.getProductos();
     }
+
+    public Cliente getCliente(String cedula) {
+        return controlClientes.getCliente(cedula);
+    }
+
+    public Cliente getClientes(String cedula) {
+        return controlClientes.getCliente(cedula);
+    }
+
+    public Producto getProducto(int codigoProducto) {
+        return controlStock.getProducto(codigoProducto);
+    }
+
+    public void agregar(Factura factura) {
+        controlFacturas.agregar(factura);
+    }
 }

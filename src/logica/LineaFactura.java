@@ -5,6 +5,8 @@
  */
 package logica;
 
+import java.util.Objects;
+
 /**
  *
  * @author magda
@@ -44,8 +46,34 @@ public class LineaFactura {
         return "LineaFactura{" + "producto=" + producto + ", cantidad=" + cantidad + '}';
     }
 
-    float getTotal() {
+    public float getTotal() {
         return cantidad * producto.getPrecio();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 83 * hash + Objects.hashCode(this.producto);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final LineaFactura other = (LineaFactura) obj;
+        return Objects.equals(this.producto, other.producto);
+    }
+    
+    
+    
+    
 
 }

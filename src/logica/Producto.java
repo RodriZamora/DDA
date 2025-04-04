@@ -111,5 +111,9 @@ public class Producto {
     private boolean validarPrecio() {
         return this.precio >= 0;
     }
+    
+    public boolean tieneStock(int cntUnidades){
+        return this.unidades >= cntUnidades;
+    }
 
 }

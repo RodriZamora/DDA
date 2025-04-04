@@ -1,4 +1,3 @@
-
 package logica;
 
 public class Cliente {
@@ -19,10 +18,15 @@ public class Cliente {
         return cedula;
     }
 
-    public void setCedula(String unaCedula) {
-
+    public Boolean setCedula(String unaCedula) {
+        String cedulaAnterior = cedula;
         cedula = unaCedula;
-
+        Boolean esCedulaValida = verificarCedula();
+        
+        if(!esCedulaValida){
+            this.cedula = cedulaAnterior;
+        }
+        return esCedulaValida;
     }
 
     private boolean verificarCedula() {

@@ -6,6 +6,7 @@
 package logica;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -34,7 +35,9 @@ class ControlFacturas {
     }
 
     public void agregar(Factura unaFactura) {
+        //Si me lo pidieran en el CU, debiera ajustar el stock en base a la FC que se agrega.
         facturas.add(unaFactura);
+        unaFactura.setFecha(new Date());
     }
 
     public boolean clienteComproProducto(Cliente c, Producto p) {
