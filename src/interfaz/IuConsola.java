@@ -38,6 +38,7 @@ public class IuConsola {
         opciones.add("Alta de Proveedor");
         opciones.add("Alta de Producto");
         opciones.add("Alta de Factura");
+        opciones.add("Clientes que compraron producto mas barato");
         opciones.add("Salir del menú");
         return Consola.menu(opciones);
     }
@@ -63,9 +64,11 @@ public class IuConsola {
                 this.nuevaFactura();
                 break;
             case 4:
+                this.consultaClientesProductoMasBarato();
+                break;
+            case 5:
                 salir = true;
                 break;
-
         }
         return salir;
     }
@@ -203,9 +206,9 @@ public class IuConsola {
             }
             mostrarDetalleFc(fc);
             mostrarTotalFc(fc);
-            if(quiereConfirmar()){
+            if (quiereConfirmar()) {
                 Fachada.getInstancia().agregar(fc);
-            }else{
+            } else {
                 Consola.println("La factura se cancelo correctamentre");
             }
         }
@@ -233,5 +236,32 @@ public class IuConsola {
     private boolean quiereConfirmar() {
         String respuesta = Consola.leer("Quiere agregar la factura?(s/n)");
         return "s".equals(respuesta);
+    }
+
+    private void consultaClientesProductoMasBarato() {
+        Producto producto = Fachada.getInstancia().getProductoMenorPrecio();
+        if (producto != null) {
+            Collection<Factura> facturas = Fachada.getInstancia().getUltimaFcDeCadaClienteQueCompro(producto);
+            mostrarDetalle(producto);
+            mostrarClientesQueCompraron(facturas);
+        } else {
+            Consola.println("No se encontro un producto mas barato");
+        }
+    }
+
+    private void mostrarDetalle(Producto producto) {
+        String linea = "("+producto.getCodigo() + ") " + producto.getNombre() + " - $" + producto.getPrecio() + " - " + producto.getUnidades();
+        Consola.println(linea);
+    }
+
+    private void mostrarClientesQueCompraron(Collection<Factura> facturas) {
+        if(facturas == null || facturas.isEmpty()){
+            Consola.println("Ningun cliente compro el producto mas barato");
+        }else{
+            for(Factura fc : facturas){
+                Cliente c = fc.getCliente();
+                Consola.println(c.getCedula()+ " - " + c.getNombre() + " - " + fc.getFecha());
+            }
+        }
     }
 }

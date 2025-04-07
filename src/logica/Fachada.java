@@ -76,4 +76,8 @@ public class Fachada {
     public void agregar(Factura factura) {
         controlFacturas.agregar(factura);
     }
+
+    public Collection<Factura> getUltimaFcDeCadaClienteQueCompro(Producto producto) {
+        return controlFacturas.getUltimaFcDeCadaClienteQueCompro(producto);
+    }
 }

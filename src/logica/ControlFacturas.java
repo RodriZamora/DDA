@@ -6,6 +6,7 @@
 package logica;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -49,5 +50,15 @@ class ControlFacturas {
         }
 
         return ret;
+    }
+
+    public Collection<Factura> getUltimaFcDeCadaClienteQueCompro(Producto producto) {
+        HashMap<String, Factura> resultado = new HashMap<>();
+        for(Factura fc : getFacturas()){
+            if(fc.tieneProducto(producto)){
+                resultado.put(fc.getCliente().getCedula(), fc);
+            }
+        }
+        return resultado.values();
     }
 }
